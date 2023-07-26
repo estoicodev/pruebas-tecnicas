@@ -35,6 +35,7 @@ function BookSearcher() {
   return (
     <div className="flex flex-col gap-y-4 lg:grid lg:grid-cols-5 gap-x-4 items-center mb-4">
       <input
+        placeholder="Search by title"
         type="search"
         value={filterText}
         onChange={e => {

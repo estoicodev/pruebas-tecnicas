@@ -4,10 +4,45 @@ import BookAppInfo from '../../components/BookAppInfo'
 import ReadingList from '../../components/ReadingList'
 import ReadingFilter from '../../components/ReadingFilter'
 import { useBookAppContext } from '../../context/useBookApp'
+import { useEffect } from 'react'
 
 function BookApp() {
-  const { readingList, readingFilteredData, readingSelectedValue, textPriority } =
-    useBookAppContext()
+  const {
+    setData,
+    setFilteredData,
+    setCountBookList,
+    setCountReadingList,
+    setBookGenres,
+    setBookAuthors,
+    readingList,
+    readingFilteredData,
+    readingSelectedValue,
+    textPriority
+  } = useBookAppContext()
+
+  useEffect(() => {
+    fetch('/books.json')
+      .then(res => res.json())
+      .then(data => {
+        const { library } = data
+        setData(library)
+        setFilteredData(library)
+        setCountBookList(library.length - readingList.length)
+        setCountReadingList(readingList.length)
+        setBookGenres([...new Set(library.map(item => item.book.genre))])
+        setBookAuthors([...new Set(library.map(item => item.book.author.name))])
+        console.log(library)
+      })
+      .catch(err => console.log(err))
+  }, [
+    readingList,
+    setData,
+    setFilteredData,
+    setCountBookList,
+    setCountReadingList,
+    setBookGenres,
+    setBookAuthors
+  ])
 
   return (
     <div className="w-full flex flex-col md:grid md:grid-cols-5">

@@ -22,22 +22,6 @@ const BookAppProvider = ({ children }) => {
     P3: 'Baja'
   }
 
-  useEffect(() => {
-    fetch('../data/books.json')
-      .then(res => res.json())
-      .then(data => {
-        const { library } = data
-        setData(library)
-        setFilteredData(library)
-        setCountBookList(library.length - readingList.length)
-        setCountReadingList(readingList.length)
-        setBookGenres([...new Set(library.map(item => item.book.genre))])
-        setBookAuthors([...new Set(library.map(item => item.book.author.name))])
-        console.log(library)
-      })
-      .catch(err => console.log(err))
-  }, [readingList])
-
   const applyFilter = (data, filterBy, filterText, selectedValue) => {
     return data.filter(item => {
       const titleMatch = item.book.title.toLowerCase().includes(filterText.toLowerCase())
@@ -104,7 +88,9 @@ const BookAppProvider = ({ children }) => {
         addToReadingList,
         deleteFromReadingList,
         bookGenres,
+        setBookGenres,
         bookAuthors,
+        setBookAuthors,
         filteredData,
         setFilteredData,
         filterText,

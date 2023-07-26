@@ -16,8 +16,6 @@ const useLocalStorage = (itemName, initialValue) => {
   const saveItem = item => {
     localStorage.setItem(itemName, JSON.stringify(item))
     setItem(item)
-    const event = new Event(`localStorageChange`)
-    window.dispatchEvent(event)
   }
 
   return {

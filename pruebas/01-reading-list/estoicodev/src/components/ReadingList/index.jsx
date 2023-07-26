@@ -11,9 +11,9 @@ function ReadingList() {
   }
 
   return (
-    <section>
+    <section className="flex flex-col order-2">
       {readingSelectedValue !== '' && readingFilteredData.length > 0 ? (
-        <p className="order-2 self-start px-2 pt-2">
+        <p className="order-1 self-start px-2 pt-2">
           {readingFilteredData.length} {readingFilteredData.length === 1 ? 'libro' : 'libros'} de
           prioridad {textPriority[readingSelectedValue]}
         </p>
